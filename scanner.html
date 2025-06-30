@@ -28,8 +28,11 @@
       border-radius: 8px;
       width: 100%;
       max-width: 400px;
-      word-break: break-all;
+      word-break: break-word;
       font-size: 1.1rem;
+      white-space: pre-wrap;
+      min-height: 50px;
+      text-align: center;
     }
     h1 {
       font-weight: 700;
@@ -54,32 +57,30 @@
     const resultContainer = document.getElementById('result');
 
     function onScanSuccess(decodedText, decodedResult) {
-      // handle the scanned code as you want
-      resultContainer.innerText = Scanned QR Code: \n${decodedText};
-
-      // optionally stop scanning after first successful scan
+      resultContainer.innerText = `Scanned QR Code:\n${decodedText}`;
+      
+      // Stop scanning after successful scan
       html5QrcodeScanner.clear().catch(error => {
-        console.error('Failed to clear qr scanner.', error);
+        console.error('Failed to clear QR scanner.', error);
       });
     }
 
     function onScanFailure(error) {
-      // No need to log scan failure - it happens frequently while scanning
-      // console.warn(Scan failure: ${error});
+      // You can log or ignore scan failures - they're normal during scanning
+      // console.warn(`Scan failure: ${error}`);
     }
 
-    let html5QrcodeScanner = new Html5Qrcode("reader");
+    const html5QrcodeScanner = new Html5Qrcode("reader");
 
     const config = { fps: 10, qrbox: { width: 250, height: 250 } };
 
-    // Start camera scanning
     html5QrcodeScanner.start(
-      { facingMode: "environment" }, // Use rear camera on mobile
+      { facingMode: "environment" }, // Rear camera preferred on mobile
       config,
       onScanSuccess,
       onScanFailure
     ).catch(err => {
-      resultContainer.innerText = Camera permission denied or error: ${err};
+      resultContainer.innerText = `Camera permission denied or error: ${err}`;
     });
   </script>
 </body>
