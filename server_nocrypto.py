@@ -14,6 +14,25 @@ if not os.path.exists(LOG_FILE):
     with open(LOG_FILE, "w") as f:
         json.dump([], f)
 
+# Load certificate dictionaries
+def load_cert_dict(path):
+    with open(path) as f:
+        return {entry['station_id']: {'certificate': entry} for entry in json.load(f)}
+
+legitimate = load_cert_dict("legitimate_charging_stations_expanded.json")
+compromised = load_cert_dict("expanded_compromised_expired_stations.json")
+fake = load_cert_dict("expanded_attacker_fake_stations.json")
+all_stations = {**legitimate, **compromised, **fake}
+
+# Load EV pinned certificates
+ev_pins = {}
+with open("expanded_ev_pinned_certificates.json") as f:
+    for ev in json.load(f):
+        ev_pins[ev['ev_id']] = {
+            'pinned_stations': {p['station_id']: p['fingerprint'] for p in ev['pinned_stations']}
+        }
+
+
 def log_session(entry):
     try:
         with open(LOG_FILE, "r") as f:
@@ -84,7 +103,7 @@ while True:
                     energy_used = round(delta * energy_per_percent, 2)
                     bill = round(energy_used * RATE_PER_KWH, 2)
 
-                    print(f"[Final] Battery: {final}%, Energy: {energy_used} kWh, Bill: ₹{bill}")
+                    print(f"[ Final] Battery: {final}%, Energy: {energy_used} kWh, Bill: ₹{bill}")
 
                     session_log = {
                         "timestamp": datetime.now().isoformat(),
@@ -113,7 +132,7 @@ while True:
                     continue
 
             except Exception as e:
-                print("[ PARSE ERROR]", e)
+                print("[PARSE ERROR]", e)
                 client_socket.send(b"REJECT: Invalid format\n")
                 continue
 
