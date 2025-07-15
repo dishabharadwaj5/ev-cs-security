@@ -30,11 +30,11 @@ def log_session(entry):
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_socket.bind((SERVER_HOST, SERVER_PORT))
 server_socket.listen(5)
-print(f"[CS] 🚗 Charging Station running on port {SERVER_PORT}")
+print(f"[CS]  Charging Station running on port {SERVER_PORT}")
 
 while True:
     client_socket, addr = server_socket.accept()
-    print(f"\n🔌 [Connection] From {addr[0]}")
+    print(f"\n [Connection] From {addr[0]}")
 
     try:
         # Receive initial request
@@ -58,8 +58,8 @@ while True:
         base_battery = int(payload.get("battery", 0))
         energy_per_percent = MAX_KWH / 100
 
-        print(f"📍 Location: {location.get('latitude')}, {location.get('longitude')}")
-        print(f"🔋 Starting battery: {base_battery}%")
+        print(f" Location: {location.get('latitude')}, {location.get('longitude')}")
+        print(f" Starting battery: {base_battery}%")
 
         # Acknowledge
         response = {
@@ -84,7 +84,7 @@ while True:
                     energy_used = round(delta * energy_per_percent, 2)
                     bill = round(energy_used * RATE_PER_KWH, 2)
 
-                    print(f"[✅ Final] Battery: {final}%, Energy: {energy_used} kWh, Bill: ₹{bill}")
+                    print(f"[Final] Battery: {final}%, Energy: {energy_used} kWh, Bill: ₹{bill}")
 
                     session_log = {
                         "timestamp": datetime.now().isoformat(),
@@ -113,11 +113,11 @@ while True:
                     continue
 
             except Exception as e:
-                print("[❌ PARSE ERROR]", e)
+                print("[ PARSE ERROR]", e)
                 client_socket.send(b"REJECT: Invalid format\n")
                 continue
 
     except Exception as e:
-        print("[❌ SERVER ERROR]", e)
+        print("[ SERVER ERROR]", e)
     finally:
         client_socket.close()
