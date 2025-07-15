@@ -63,3 +63,5 @@ This isn’t your basic “replay the same packet” toy example. Here's what ma
 ```bash
 git clone https://github.com/dishabharadwaj5/ev-cs-secure-sim.git
 cd ev-cs-secure-sim
+
+<pre lang="bash"> # 🚀 How to Run the Simulation # 1. Clone the Repository git clone https://github.com/dishabharadwaj5/ev-cs-secure-sim.git cd ev-cs-secure-sim # 2. Install Requirements pip install -r requirements.txt # 3. Start the Charging Station Server python charging_station_server.py # 4. Run the EV Client python ev_client.py # 5. (Optional) Launch the MITM Attacker python attacker_mitm.py # 6. (Optional) Launch the Replay Attacker python attacker_replay.py # 7. (Optional) Start the Real-Time Dashboard streamlit run dashboard/app.py </pre>
