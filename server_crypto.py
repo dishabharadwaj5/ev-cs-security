@@ -20,6 +20,25 @@ if not os.path.exists(LOG_FILE):
     with open(LOG_FILE, "w") as f:
         json.dump([], f)
 
+# Load certificate dictionaries
+def load_cert_dict(path):
+    with open(path) as f:
+        return {entry['station_id']: {'certificate': entry} for entry in json.load(f)}
+
+legitimate = load_cert_dict("legitimate_charging_stations_expanded.json")
+compromised = load_cert_dict("expanded_compromised_expired_stations.json")
+fake = load_cert_dict("expanded_attacker_fake_stations.json")
+all_stations = {**legitimate, **compromised, **fake}
+
+# Load EV pinned certificates
+ev_pins = {}
+with open("expanded_ev_pinned_certificates.json") as f:
+    for ev in json.load(f):
+        ev_pins[ev['ev_id']] = {
+            'pinned_stations': {p['station_id']: p['fingerprint'] for p in ev['pinned_stations']}
+        }
+
+
 # Load private RSA key
 with open(PRIVATE_KEY_FILE, "rb") as key_file:
     private_key = RSA.import_key(key_file.read())
