@@ -12,7 +12,6 @@ A full-stack simulation of a secure communication protocol between an Electric V
   - RSA for secure key exchange.
   - AES for fast, encrypted message transmission.
 - 🧠 **Replay Attack Prevention** using:
-  - Nonce validation
   - Timestamp verification
   - Context-aware hash tokening (`GPS + battery + timestamp + power`)
 - 🕵️ **MITM Module** with:
