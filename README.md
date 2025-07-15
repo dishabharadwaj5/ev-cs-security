@@ -104,3 +104,8 @@ streamlit run dashboard/app.py
 
 ---
 
+🙌 Authors
+Disha Bharadwaj
+Nandani Prasad
+Dhvani Amit Banker
+T G Sanjana
