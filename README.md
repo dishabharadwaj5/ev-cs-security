@@ -32,8 +32,8 @@ A full-stack simulation of a secure communication protocol between an Electric V
 This isn’t your basic “replay the same packet” toy example. Here's what makes this simulation different:
 
 - 🔄 **Protocol-Level Simulation**: Built on **Python socket programming** instead of network sniffing or packet injection.
-- 🔐 **Actual Cryptography**: Uses **RSA + AES**, not placeholder functions or mock security.
-- 📍 **Context-Bound Validation**: Even valid requests get rejected if context (location, battery, etc.) doesn’t match.
+- 🔐 **Actual Cryptography**: Uses **RSA + AES**.
+- 📍 **Context-Bound Validation**: Even valid requests get rejected if context (location, battery,timestamp, etc.) doesn’t match.
 - 🧩 **Modular Actor Design**: EV, CS, and Attacker are separate programs with clear roles and lifecycle control.
 - 🧪 **Full Attack Lifecycle**: Capture → Modify → Replay → Detect — all within one system.
 - 📈 **Real-Time Dashboard**: Visualize the full communication flow, status, and security verdicts live.
