@@ -38,7 +38,7 @@ This isn’t your basic “replay the same packet” toy example. Here's what ma
 - 🧪 **Full Attack Lifecycle**: Capture → Modify → Replay → Detect — all within one system.
 - 📈 **Real-Time Dashboard**: Visualize the full communication flow, status, and security verdicts live.
 
----## 🧰 Components
+## 🧰 Components
 
 | File / Folder                             | Description                                                                 |
 |------------------------------------------|-----------------------------------------------------------------------------|
@@ -55,54 +55,72 @@ This isn’t your basic “replay the same packet” toy example. Here's what ma
 | `expanded_attacker_fake_stations.json`   | Contains spoofed/fake station data used by attacker                         |
 
 ---
-
-
 ## 🚀 How to Run the Simulation
 
-### 1. Clone the Repository
+### 1️⃣ Clone the Repository
 
 ```bash
 git clone https://github.com/dishabharadwaj5/ev-cs-secure-sim.git
 cd ev-cs-secure-sim
-```
+````
 
-### 2. Install Requirements
+### 2️⃣ Install Required Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Start the Charging Station Server
+### 3️⃣ Generate RSA Key Pairs (for Hybrid Encryption)
 
 ```bash
-python charging_station_server.py
+python generate_key.py
 ```
 
-### 4. Run the EV Client
+### 4️⃣ Start the Charging Station Server
 
 ```bash
-python ev_client.py
+# With hybrid encryption (recommended)
+python server_crypto.py
+
+# OR without encryption (for insecure simulation)
+python server_nocrypto.py
 ```
 
-### 5. (Optional) Launch the MITM Attacker
+### 5️⃣ Start the EV Client
 
 ```bash
-python attacker_mitm.py
+# With hybrid encryption (recommended)
+python client_crypto.py
+
+# OR without encryption (for insecure simulation)
+python client_nocrypto.py
 ```
 
-### 6. (Optional) Launch the Replay Attacker
+### 6️⃣ (Optional) Launch the MITM Attacker
 
 ```bash
-python attacker_replay.py
+python attacker.py
 ```
 
-### 7. (Optional) Start the Real-Time Dashboard
+> This will intercept EV ↔ CS messages, modify them in real-time, and log sessions into `replay_log.json`.
+
+### 7️⃣ (Optional) Start the Flask-Based Charging Station Dashboard
 
 ```bash
-streamlit run dashboard/app.py
+python server_dashboard.py
 ```
 
----
+> This provides real-time visibility into EV requests, attack detection, charging progress, and billing.
+
+### 8️⃣ (Optional) Start the Flask-Based Electic vehicle Dashboard
+
+```bash
+python client_dashboard.py
+```
+
+> This simulation provides a QR code that can be scanned using a mobile device. Once scanned, the mobile connects securely to the EV and can directly send charging requests to the Charging Station. The user can initiate or stop the charging process at any time from their phone, offering a seamless and secure mobile interface for EV charging.
+
+```
 
 🙌 Authors
 Disha Bharadwaj
