@@ -38,22 +38,21 @@ This isn’t your basic “replay the same packet” toy example. Here's what ma
 - 🧪 **Full Attack Lifecycle**: Capture → Modify → Replay → Detect — all within one system.
 - 📈 **Real-Time Dashboard**: Visualize the full communication flow, status, and security verdicts live.
 
----
+---## 🧰 Components
 
-## 🧰 Components
-
-| File / Folder          | Description                                                                 |
-|------------------------|-----------------------------------------------------------------------------|
-
-| `server_nocrypto.py`         | Server code with no cryptography     |
-| `server_crypto.py`         | Server code with cryptography     |
-| `client_nocrypto.py`         | Client code with no cryptography(messages sent aren't very secure)     |
-| `client_crypto.py` | Client code with no cryptography       |
-| `attacker.py`     | Socket-level MITM proxy for interception, payload tampering and Replays previously captured sessions (from log) to simulate replay attacks             |
-| `replay_log.json`      | Stores recorded sessions captured by MITM for future replay                |
-| `server_dashboard.py`           | Flask dashboard for request monitoring and attack detection             |
-| `certs/`               | Contains digital certificates and RSA keys for EV and CS                    |
-| `crypto/`              | AES and RSA helper modules for secure encryption & decryption               |
+| File / Folder                             | Description                                                                 |
+|------------------------------------------|-----------------------------------------------------------------------------|
+| `server_nocrypto.py`                     | Charging Station (CS) server code without cryptography                      |
+| `server_crypto.py`                       | Charging Station (CS) server code with hybrid cryptography (RSA + AES)      |
+| `client_nocrypto.py`                     | EV client code without cryptography (sends plain messages)                  |
+| `client_crypto.py`                       | EV client code with hybrid cryptography (RSA + AES)                         |
+| `attacker.py`                            | Socket-level MITM proxy for intercepting, modifying, and replaying sessions |
+| `replay_log.json`                        | Stores recorded EV–CS sessions captured by MITM for replay attacks          |
+| `server_dashboard.py`                    | Flask dashboard for real-time request monitoring and attack detection       |
+| `generate_key.py`                        | Generates RSA key pairs for server and client                               |
+| `legitimate_charging_stations_expanded.json` | Contains pinned data of all legitimate Charging Stations (CS)              |
+| `expanded_compromised_expired_stations.json` | Contains details of expired or compromised stations                        |
+| `expanded_attacker_fake_stations.json`   | Contains spoofed/fake station data used by attacker                         |
 
 ---
 
