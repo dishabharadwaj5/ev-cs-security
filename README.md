@@ -44,12 +44,14 @@ This isn’t your basic “replay the same packet” toy example. Here's what ma
 
 | File / Folder          | Description                                                                 |
 |------------------------|-----------------------------------------------------------------------------|
-| `ev_client.py`         | Simulates the Electric Vehicle — sends encrypted auth + power requests      |
-| `charging_station_server.py` | Validates requests, decrypts payloads, and detects attacks           |
-| `attacker_mitm.py`     | Socket-level MITM proxy for interception and payload tampering              |
-| `attacker_replay.py`   | Replays previously captured sessions (from log) to simulate replay attacks |
+
+| `server_nocrypto.py`         | Server code with no cryptography     |
+| `server_crypto.py`         | Server code with cryptography     |
+| `client_nocrypto.py`         | Client code with no cryptography(messages sent aren't very secure)     |
+| `client_crypto.py` | Client code with no cryptography       |
+| `attacker.py`     | Socket-level MITM proxy for interception, payload tampering and Replays previously captured sessions (from log) to simulate replay attacks             |
 | `replay_log.json`      | Stores recorded sessions captured by MITM for future replay                |
-| `dashboard/`           | Streamlit dashboard for request monitoring and attack detection             |
+| `server_dashboard.py`           | Flask dashboard for request monitoring and attack detection             |
 | `certs/`               | Contains digital certificates and RSA keys for EV and CS                    |
 | `crypto/`              | AES and RSA helper modules for secure encryption & decryption               |
 
